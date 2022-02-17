@@ -3,12 +3,17 @@ import data from './data';
 
 
 function App() {
-  const [paragraphs, setParagraphs] = useState(0)
+  const [quantity, setQuantity] = useState(0);
+  const [paragraphs, setParagraphs] = useState([]);
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`you want ${paragraphs}`)
-  }
+    for(let i = 0;i < quantity; i++){
+      setParagraphs(prevState => [...prevState, data[i]]);
+    };
+    
+    setQuantity(0)
+  };
 
 
   return (
@@ -17,11 +22,15 @@ function App() {
     <section className='section-center'>
       <form onSubmit={handleSubmit}>
         <label>Paragraphs: </label>
-        <input type='number' value={paragraphs} min='1' max='8' onChange={(e) => setParagraphs(e.target.value)}></input>
+        <input type='number' value={quantity} min='1' max='8' onChange={(e) => setQuantity(e.target.value)}></input>
         <button className='btn' type='submit'>Generate</button>
       </form>
     </section>
-    <section className='result'></section>
+    <section className='result'>
+      <div>
+        {paragraphs}
+      </div>
+    </section>
   </main>
     )
 }
