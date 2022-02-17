@@ -3,22 +3,19 @@ import data from './data';
 
 
 function App() {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [paragraphs, setParagraphs] = useState([]);
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    for(let i = 0;i < quantity; i++){
-      setParagraphs(prevState => [...prevState, data[i]]);
-    };
-    
-    setQuantity(0)
+    let amount = parseInt(quantity)
+    setParagraphs(data.slice(0, amount));
   };
 
 
   return (
   <main className='section'>
-    <h3 className='title'>Cool LoremIpsum</h3>
+    <h3 className='title'>Cool Lorem Ipsum</h3>
     <section className='section-center'>
       <form onSubmit={handleSubmit}>
         <label>Paragraphs: </label>
@@ -27,9 +24,11 @@ function App() {
       </form>
     </section>
     <section className='result'>
-      <div>
-        {paragraphs}
-      </div>
+      <article className='lorem-text'>
+        {paragraphs.map((text, index)=> {
+          return <p key={index}>{text}</p>
+        })}
+      </article>
     </section>
   </main>
     )
